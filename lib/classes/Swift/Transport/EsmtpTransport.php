@@ -20,21 +20,21 @@ class Swift_Transport_EsmtpTransport extends Swift_Transport_AbstractSmtpTranspo
      *
      * @var Swift_Transport_EsmtpHandler[]
      */
-    private $handlers = [];
+    protected $handlers = [];
 
     /**
      * ESMTP capabilities.
      *
      * @var string[]
      */
-    private $capabilities = [];
+    protected $capabilities = [];
 
     /**
      * Connection buffer parameters.
      *
      * @var array
      */
-    private $params = [
+    protected $params = [
         'protocol' => 'tcp',
         'host' => 'localhost',
         'port' => 25,
@@ -403,7 +403,7 @@ class Swift_Transport_EsmtpTransport extends Swift_Transport_AbstractSmtpTranspo
     }
 
     /** Determine ESMTP capabilities by function group */
-    private function getCapabilities($ehloResponse)
+    protected function getCapabilities($ehloResponse)
     {
         $capabilities = [];
         $ehloResponse = trim($ehloResponse);
@@ -422,7 +422,7 @@ class Swift_Transport_EsmtpTransport extends Swift_Transport_AbstractSmtpTranspo
     }
 
     /** Set parameters which are used by each extension handler */
-    private function setHandlerParams()
+    protected function setHandlerParams()
     {
         foreach ($this->handlers as $keyword => $handler) {
             if (array_key_exists($keyword, $this->capabilities)) {
@@ -432,7 +432,7 @@ class Swift_Transport_EsmtpTransport extends Swift_Transport_AbstractSmtpTranspo
     }
 
     /** Get ESMTP handlers which are currently ok to use */
-    private function getActiveHandlers()
+    protected function getActiveHandlers()
     {
         $handlers = [];
         foreach ($this->handlers as $keyword => $handler) {
